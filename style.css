@@ -1,0 +1,339 @@
+/* ===== CORES DA MARCA ===== */
+:root {
+    --azul-escuro: #1E3A5F;
+    --azul-medio: #2C5282;
+    --turquesa: #22A6B3;
+    --turquesa-claro: #71D0D9;
+    --cinza-claro: #F0F4F8;
+    --branco: #FFFFFF;
+    --texto: #2D3748;
+    --sucesso: #2F855A;
+    --erro: #C53030;
+}
+
+/* ===== RESET GERAL ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: var(--texto);
+    background-color: var(--cinza-claro);
+    line-height: 1.6;
+}
+
+h1, h2, h3 {
+    font-family: 'Fraunces', serif;
+}
+
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* ===== CABEÇALHO ===== */
+header {
+    background: linear-gradient(135deg, var(--azul-escuro) 0%, var(--azul-medio) 100%);
+    color: white;
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.logo svg {
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+.logo h1 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+.logo span {
+    color: var(--turquesa-claro);
+    font-size: 0.9rem;
+    display: block;
+}
+
+nav {
+    display: flex;
+    gap: 1.5rem;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: var(--turquesa-claro);
+}
+
+/* ===== SEÇÃO HERO ===== */
+.hero {
+    padding: 4rem 0;
+    background: linear-gradient(180deg, var(--azul-escuro) 0%, var(--azul-medio) 100%);
+    color: white;
+}
+
+.hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+}
+
+.hero-text h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+}
+
+.hero-text p {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.circle-accent {
+    width: 280px;
+    height: 280px;
+    background: radial-gradient(circle, var(--turquesa) 0%, transparent 70%);
+    border-radius: 50%;
+    margin: 0 auto;
+    opacity: 0.6;
+}
+
+/* ===== BOTÕES ===== */
+.btn {
+    display: inline-block;
+    padding: 0.875rem 2rem;
+    border-radius: 8px;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--turquesa) 0%, var(--turquesa-claro) 100%);
+    color: white;
+    box-shadow: 0 4px 12px rgba(34, 166, 179, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(34, 166, 179, 0.4);
+}
+
+.btn-full {
+    width: 100%;
+}
+
+/* ===== TÍTULOS DE SEÇÃO ===== */
+.section-title {
+    text-align: center;
+    font-size: 2rem;
+    color: var(--azul-escuro);
+    margin-bottom: 0.5rem;
+}
+
+.section-subtitle {
+    text-align: center;
+    color: var(--azul-medio);
+    margin-bottom: 2.5rem;
+}
+
+/* ===== SERVIÇOS ===== */
+.services {
+    padding: 4rem 0;
+    background: white;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+}
+
+.service-card {
+    background: var(--cinza-claro);
+    padding: 1.75rem;
+    border-radius: 12px;
+    border-left: 4px solid var(--turquesa);
+    transition: transform 0.3s;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+}
+
+.service-card h3 {
+    font-size: 1.15rem;
+    margin-bottom: 0.75rem;
+    color: var(--azul-escuro);
+}
+
+.service-card p {
+    font-size: 0.95rem;
+    color: #4A5568;
+    margin-bottom: 1rem;
+}
+
+.price {
+    display: inline-block;
+    font-weight: 700;
+    color: var(--turquesa);
+    font-size: 1rem;
+}
+
+/* ===== AGENDAMENTO ===== */
+.booking {
+    padding: 4rem 0;
+    background: linear-gradient(180deg, var(--cinza-claro) 0%, #E2E8F0 100%);
+}
+
+.booking-form {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(30, 58, 95, 0.08);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--azul-escuro);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 2px solid #E2E8F0;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--turquesa);
+}
+
+.message {
+    max-width: 600px;
+    margin: 1.5rem auto 0;
+    padding: 1.25rem;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.message.success {
+    background: #F0FFF4;
+    color: var(--sucesso);
+    border: 1px solid #9AE6B4;
+}
+
+.message.error {
+    background: #FFF5F5;
+    color: var(--erro);
+    border: 1px solid #FEB2B2;
+}
+
+/* ===== CONTATO ===== */
+.contact {
+    padding: 4rem 0;
+    background: white;
+}
+
+.contact-info {
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: center;
+    background: var(--cinza-claro);
+    padding: 2rem;
+    border-radius: 12px;
+}
+
+.contact-info p {
+    margin-bottom: 0.75rem;
+    font-size: 1.05rem;
+}
+
+/* ===== RODAPÉ ===== */
+footer {
+    background: var(--azul-escuro);
+    color: white;
+    text-align: center;
+    padding: 2rem 0;
+    font-size: 0.95rem;
+}
+
+/* ===== RESPONSIVO ===== */
+@media (max-width: 768px) {
+    .hero-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    nav {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .hero-text h2 {
+        font-size: 1.8rem;
+    }
+
+    .booking-form {
+        padding: 1.5rem;
+    }
+}

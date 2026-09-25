@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equilíbrio Terapias — Agendamento</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Cabeçalho -->
+<header>
+    <div class="container header-content">
+        <div class="logo">
+            <svg width="50" height="50" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="48" fill="white" stroke="#1E3A5F" stroke-width="4"/>
+                <path d="M40 30C32 35 28 45 30 55C32 65 40 72 50 75V30C46 28 43 28 40 30Z" fill="#1E3A5F"/>
+                <path d="M50 30C55 28 60 32 65 40C72 50 70 62 60 72C55 76 50 77 50 77V30Z" fill="#22A6B3"/>
+            </svg>
+            <div>
+                <h1>EQUILÍBRIO</h1>
+                <span>Terapias</span>
+            </div>
+        </div>
+        <nav>
+            <a href="#inicio">Início</a>
+            <a href="#servicos">Serviços</a>
+            <a href="#agendar">Agendar</a>
+            <a href="#contato">Contato</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <!-- Seção Início -->
+    <section id="inicio" class="hero">
+        <div class="container hero-grid">
+            <div class="hero-text">
+                <h2>Seu bem-estar em equilíbrio</h2>
+                <p>Cuide de você com terapias que aliviam, relaxam e transformam. Agende seu horário com facilidade!</p>
+                <a href="#agendar" class="btn btn-primary">Agendar Agora</a>
+            </div>
+            <div class="hero-image">
+                <div class="circle-accent"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção Serviços -->
+    <section id="servicos" class="services">
+        <div class="container">
+            <h2 class="section-title">Nossos Serviços</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>🦶 Reflexoterapia</h3>
+                    <p>Estímulo de pontos nos pés para alívio de dores, estresse e equilíbrio do corpo inteiro.</p>
+                    <span class="price">R$ 175,00 • 60 min</span>
+                </div>
+                <div class="service-card">
+                    <h3>🌿 Ventosaterapia</h3>
+                    <p>Melhora circulação, alivia tensões musculares e elimina toxinas do organismo.</p>
+                    <span class="price">R$ 175,00 • 45 min</span>
+                </div>
+                <div class="service-card">
+                    <h3>💆 auriculoterapia</h3>
+                    <p>Relaxamento profundo, alívio de estresse e renovação de energias.</p>
+                    <span class="price">R$ 175,00 • 60 min</span>
+                </div>
+                <div class="service-card">
+                    <h3>🧠 Terapia Holística</h3>
+                    <p>Abordagem integral: corpo, mente e emoções em harmonia.</p>
+                    <span class="price">R$ 175,00 • 60 min</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção Agendamento -->
+    <section id="agendar" class="booking">
+        <div class="container">
+            <h2 class="section-title">Agende Sua Sessão</h2>
+            <p class="section-subtitle">Segunda a Sexta • 08h às 22h</p>
+
+            <form id="bookingForm" class="booking-form">
+                <div class="form-group">
+                    <label for="nome">Seu Nome *</label>
+                    <input type="text" id="nome" required placeholder="Digite seu nome completo">
+                </div>
+
+                <div class="form-group">
+                    <label for="whatsapp">Seu WhatsApp *</label>
+                    <input type="tel" id="whatsapp" required placeholder="(XX) XXXXX-XXXX">
+                </div>
+
+                <div class="form-group">
+                    <label for="servico">Escolha o Serviço *</label>
+                    <select id="servico" required>
+                        <option value="">Selecione um serviço...</option>
+                        <option value="Reflexoterapia - R$175,00 - 60min">🦶 Reflexoterapia — R$ 175,00 (60 min)</option>
+                        <option value="Ventosaterapia - R$175,00 - 45min">🌿 Ventosaterapia — R$ 175,00 (45 min)</option>
+                        <option value="Auriculoterapia - R$175,00 - 60min">💆 Auriculoterapia — R$ 175,00 (60 min)</option>
+                        <option value="Terapia Holística - R$175,00 - 60min">🧠 Terapia Holística — R$ 175,00 (60 min)</option>
+                    </select>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="data">Data *</label>
+                        <input type="date" id="data" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="horario">Horário *</label>
+                        <select id="horario" required>
+                            <option value="">Escolha primeiro a data</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="observacoes">Observações (opcional)</label>
+                    <textarea id="observacoes" rows="3" placeholder="Alguma informação importante?"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-full">📅 Confirmar Agendamento</button>
+            </form>
+
+            <div id="mensagem" class="message" style="display: none;"></div>
+        </div>
+    </section>
+
+    <!-- Seção Contato -->
+    <section id="contato" class="contact">
+        <div class="container">
+            <h2 class="section-title">Entre em Contato</h2>
+            <div class="contact-info">
+                <p><strong>📱 WhatsApp:</strong> (27) 99999-9999</p>
+                <p><strong>📍 Endereço:</strong> Vitória — ES</p>
+                <p><strong>⏰ Atendimento:</strong> Segunda a Sexta, 08h às 22h</p>
+                <p><strong>📷 Instagram:</strong> @equilibrioterapiaes</p>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2026 Equilíbrio Terapias. Todos os direitos reservados.</p>
+    </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
