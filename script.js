@@ -1,6 +1,6 @@
 // ================= CONFIGURAÇÕES =================
 // ⚠️ COLOQUE SEU NÚMERO AQUI (apenas dígitos, com DDD)
-const NUMERO_TERAPEUTA = "27999999999"; // ← ALTERE AQUI! Ex: 27988887777
+const NUMERO_TERAPEUTA = "27999406668"; // ← ALTERE AQUI! Ex: 27988887777
 
 // Horários disponíveis: 08h às 22h, de hora em hora
 const HORARIOS = [];
