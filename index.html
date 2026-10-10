@@ -68,12 +68,7 @@
                     <p>Estímulo de pontos na orelha para alívio de dores, estresse e equilíbrio do corpo inteiro.</p>
                     <span class="price">R$ 175,00 • 60 min</span>
                 </div>  
-                <div class="service-card">
-                    <h3>🧠 Terapia Holística</h3>
-                    <p>Abordagem integral: corpo, mente e emoções em harmonia.</p>
-                    <span class="price">R$ 175,00 • 60 min</span>
-                </div>
-                <div class="service-card">
+             <div class="service-card">
                     <h3>  Quiropraxia</h3>
                     <p>Tratamento manual para alívio de dores e melhora da função articular.</p>
                     <span class="price">R$ 175,00 • 60 min</span>
@@ -106,7 +101,6 @@
                         <option value="Reflexoterapia - R$175,00 - 60min">🦶 Reflexoterapia — R$ 175,00 (60 min)</option>
                         <option value="Ventosaterapia - R$175,00 - 45min">🌿 Ventosaterapia — R$ 175,00 (45 min)</option>
                         <option value="Auriculoterapia - R$175,00 - 60min">💆 Auriculoterapia — R$ 175,00 (60 min)</option>
-                        <option value="Terapia Holística - R$175,00 - 60min">🧠 Terapia Holística — R$ 175,00 (60 min)</option>
                         <option value="Quiropraxia - R$175,00 - 60min">🧠 Quiropraxia — R$ 175,00 (60 min)</option>
                     </select>
                 </div>
@@ -155,6 +149,104 @@
         <p>&copy; 2026 Equilíbrio Terapias. Todos os direitos reservados.</p>
     </div>
 </footer>
+
+<!-- ================= ÁREA DO ADMINISTRADOR (ADICIONAR) ================= -->
+<section id="admin-section" class="booking" style="border-top: 4px solid var(--azul-escuro); margin-top: 4rem; padding-bottom: 5rem;">
+    <div class="container">
+        <h2 class="section-title">🔐 Painel Administrativo</h2>
+        <p class="section-subtitle">Gerencie os horários, bloqueios e fotos da equipe</p>
+
+        <!-- Formulário de Login -->
+        <div id="admin-login-box" class="booking-form" style="max-width: 400px; margin: 0 auto;">
+            <div class="form-group">
+                <label for="admin-password">Senha de Acesso</label>
+                <input type="password" id="admin-password" placeholder="Digite a senha do painel...">
+            </div>
+            <button class="btn btn-primary btn-full" onclick="verificarSenhaAdmin()">Acessar Painel</button>
+        </div>
+
+        <!-- Painel Logado (Oculto por padrão) -->
+        <div id="admin-panel" style="display: none; margin-top: 2rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+                <h3 style="color: var(--azul-escuro); font-size: 1.5rem;">Bem-vindo, Administrador!</h3>
+                <button class="btn" style="background: #e2e8f0; padding: 0.5rem 1rem;" onclick="fazerLogoutAdmin()">Sair do Painel</button>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                
+                <!-- Bloco 1: Bloqueio de Dias e Horários -->
+                <div class="booking-form" style="margin: 0; max-width: 100%;">
+                    <h4 style="color: var(--azul-escuro); margin-bottom: 1rem; font-weight: bold;">🚫 Bloquear Dias/Horários</h4>
+                    
+                    <div class="form-group">
+                        <label for="admin-data-bloqueio">Bloquear Dia Inteiro</label>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <input type="date" id="admin-data-bloqueio">
+                            <button class="btn btn-primary" style="padding: 0 1rem;" onclick="gerenciarBloqueioDia()">Bloquear</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 1.5rem;">
+                        <label>Bloquear Horário Específico</label>
+                        <div class="form-row">
+                            <input type="date" id="admin-hora-data">
+                            <select id="admin-hora-select"></select>
+                        </div>
+                        <button class="btn btn-primary btn-full" style="margin-top: 0.5rem; background: var(--azul-medio);" onclick="gerenciarBloqueioHorario()">Bloquear Horário</button>
+                    </div>
+
+                    <div style="margin-top: 1.5rem;">
+                        <h5 style="font-weight: bold; margin-bottom: 0.5rem;">Bloqueios Ativos:</h5>
+                        <ul id="lista-bloqueios-ativos" style="font-size: 0.9rem; padding-left: 1.2rem; color: var(--erro);"></ul>
+                    </div>
+                </div>
+
+                <!-- Bloco 2: Cadastro de Terapeutas -->
+                <div class="booking-form" style="margin: 0; max-width: 100%;">
+                    <h4 style="color: var(--azul-escuro); margin-bottom: 1rem; font-weight: bold;">👤 Fotos e Terapeutas</h4>
+                    <div class="form-group">
+                        <label for="nome-terapeuta">Nome do Terapeuta</label>
+                        <input type="text" id="nome-terapeuta" placeholder="Ex: Dr. Carlos Silva">
+                    </div>
+                    <div class="form-group">
+                        <label for="link-foto-terapeuta">URL da Imagem/Foto</label>
+                        <input type="url" id="link-foto-terapeuta" placeholder="https://linkdafoto.com">
+                    </div>
+                    <button class="btn btn-primary btn-full" onclick="adicionarTerapeuta()">Adicionar Terapeuta</button>
+
+                    <div style="margin-top: 1.5rem;">
+                        <h5 style="font-weight: bold; margin-bottom: 0.5rem;">Equipe cadastrada:</h5>
+                        <div id="lista-terapeutas-admin" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)); gap: 0.5rem;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bloco 3: Tabela de Agendamentos do Dia -->
+            <div class="booking-form" style="margin-top: 2rem; max-width: 100%;">
+                <h4 style="color: var(--azul-escuro); margin-bottom: 1rem; font-weight: bold;">📋 Agendamentos Recebidos</h4>
+                <div class="form-group" style="max-width: 250px; display: flex; gap: 0.5rem; align-items: center;">
+                    <label style="margin: 0; white-space: nowrap;" for="filtro-data-tabela">Filtrar Dia:</label>
+                    <input type="date" id="filtro-data-tabela" onchange="renderizarTabelaAgendamentos()">
+                </div>
+                
+                <div style="overflow-x: auto; margin-top: 1rem;">
+                    <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem;">
+                        <thead>
+                            <tr style="background: var(--azul-escuro); color: white;">
+                                <th style="padding: 0.75rem;">Horário</th>
+                                <th style="padding: 0.75rem;">Cliente</th>
+                                <th style="padding: 0.75rem;">WhatsApp</th>
+                                <th style="padding: 0.75rem;">Serviço</th>
+                            </tr>
+                        </thead>
+                        <tbody id="corpo-tabela-agendamentos"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 
 <script src="script.js"></script>
 </body>
