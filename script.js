@@ -13,6 +13,9 @@ let diasBloqueados = [];
 
 // ================= INICIALIZAÇÃO =================
 document.addEventListener('DOMContentLoaded', () => {
+    inicializarCamposAdmin();
+    if (sessionStorage.getItem('admin_logado') === 'true') exibirPainelAdmin();
+
     const inputData = document.getElementById('data');
     const hoje = new Date().toISOString().split('T')[0];
     inputData.setAttribute('min', hoje);
@@ -25,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function carregarHorarios() {
     const dataEscolhida = document.getElementById('data').value;
     const selectHorario = document.getElementById('horario');
+    if (!selectHorario) return;
     selectHorario.innerHTML = '';
 
     if (!dataEscolhida) {
@@ -32,29 +36,31 @@ function carregarHorarios() {
         return;
     }
 
-    const data = new Date(dataEscolhida + 'T00:00:00');
-    const diaSemana = data.getDay(); // 0 = Domingo, 6 = Sábado
-
-    // Verifica se é fim de semana
+    const diaSemana = new Date(dataEscolhida + 'T00:00:00').getDay();
     if (diaSemana === 0 || diaSemana === 6) {
         selectHorario.innerHTML = '<option value="">❌ Fechado — Segunda a Sexta apenas</option>';
         return;
     }
 
-    // Verifica se dia está bloqueado
-    if (diasBloqueados.includes(dataEscolhida)) {
+    if (diasBloqueadosCompletos.includes(dataEscolhida)) {
         selectHorario.innerHTML = '<option value="">🚫 Dia bloqueado pelo terapeuta</option>';
         return;
     }
 
-    // Adiciona horários disponíveis
     selectHorario.innerHTML = '<option value="">Selecione um horário...</option>';
-    HORARIOS.forEach(hora => {
-        const option = document.createElement('option');
-        option.value = hora;
-        option.textContent = hora;
-        selectHorario.appendChild(option);
+    const horasBloqueadasNesseDia = horariosBloqueadosEspecificos[dataEscolhida] || [];
+
+    HORARIOS_PADRAO.forEach(hora => {
+        if (!horasBloqueadasNesseDia.includes(hora)) {
+            const option = document.createElement('option');
+            option.value = hora; option.textContent = hora;
+            selectHorario.appendChild(option);
+        }
     });
+
+    if (selectHorario.options.length === 1) {
+        selectHorario.innerHTML = '<option value="">🚫 Não há horários disponíveis hoje</option>';
+    }
 }
 
 // ================= ENVIAR AGENDAMENTO =================
@@ -119,6 +125,12 @@ function enviarAgendamento(e) {
     setTimeout(() => window.open(linkTerapeuta, '_blank'), 300);
     // Depois mensagem para cliente
     setTimeout(() => window.open(linkCliente, '_blank'), 800);
+
+    const agendamentoParaTabela = { data, horario, nome, whatsapp, servico };
+    historicoAgendamentosLocais.push(agendamentoParaTabela);
+    localStorage.setItem('historicoAgendamentos', JSON.stringify(historicoAgendamentosLocais));
+    renderizarTabelaAgendamentos();
+
 
     // Resetar formulário
     e.target.reset();
