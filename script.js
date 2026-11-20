@@ -1,15 +1,20 @@
 // ================= CONFIGURAÇÕES =================
 // ⚠️ COLOQUE SEU NÚMERO AQUI (apenas dígitos, com DDD)
 const NUMERO_TERAPEUTA = "27999406668"; // ← ALTERE AQUI! Ex: 27988887777
+const SENHA_ADMIN_DEFINIDA = "12345"; // Defina sua senha do painel aqui
 
 // Horários disponíveis: 08h às 22h, de hora em hora
-const HORARIOS = [];
-for (let h = 8; h <= 22; h++) {
-    HORARIOS.push(`${h.toString().padStart(2, '0')}:00`);
-}
+const HORARIOS_PADRAO = [
+    "08:00","09:00","10:00","11:00","12:00",
+    "13:00","14:00","15:00","16:00","17:00",
+    "18:00","19:00","20:00","21:00","22:00"
+];
 
-// Dias bloqueados pelo terapeuta
-let diasBloqueados = [];
+// ================= DADOS LOCAIS (salvos no navegador) =================
+let diasBloqueadosCompletos = JSON.parse(localStorage.getItem('diasBloqueados')) || [];
+let horariosBloqueadosEspecificos = JSON.parse(localStorage.getItem('horariosBloqueados')) || {}; 
+let listaTerapeutas = JSON.parse(localStorage.getItem('listaTerapeutas')) || [];
+let historicoAgendamentosLocais = JSON.parse(localStorage.getItem('historicoAgendamentos')) || [];
 
 // ================= INICIALIZAÇÃO =================
 document.addEventListener('DOMContentLoaded', () => {
@@ -18,10 +23,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const inputData = document.getElementById('data');
     const hoje = new Date().toISOString().split('T')[0];
-    inputData.setAttribute('min', hoje);
+    if (inputData) inputData.setAttribute('min', hoje);
 
-    inputData.addEventListener('change', carregarHorarios);
-    document.getElementById('bookingForm').addEventListener('submit', enviarAgendamento);
+    if (inputData) inputData.addEventListener('change', carregarHorarios);
+    const form = document.getElementById('bookingForm');
+    if (form) form.addEventListener('submit', enviarAgendamento);
 });
 
 // ================= CARREGAR HORÁRIOS =================
@@ -36,9 +42,11 @@ function carregarHorarios() {
         return;
     }
 
+    // ✅ ATUALIZADO: Terça a Sexta apenas
+    // diaSemana: 0=Dom | 1=Seg | 2=Ter | 3=Qua | 4=Qui | 5=Sex | 6=Sáb
     const diaSemana = new Date(dataEscolhida + 'T00:00:00').getDay();
-    if (diaSemana === 0 || diaSemana === 6) {
-        selectHorario.innerHTML = '<option value="">❌ Fechado — Segunda a Sexta apenas</option>';
+    if (diaSemana === 0 || diaSemana === 1 || diaSemana === 6) {
+        selectHorario.innerHTML = '<option value="">❌ Indisponível — Terça a Sexta apenas</option>';
         return;
     }
 
@@ -53,7 +61,8 @@ function carregarHorarios() {
     HORARIOS_PADRAO.forEach(hora => {
         if (!horasBloqueadasNesseDia.includes(hora)) {
             const option = document.createElement('option');
-            option.value = hora; option.textContent = hora;
+            option.value = hora; 
+            option.textContent = hora;
             selectHorario.appendChild(option);
         }
     });
@@ -73,7 +82,6 @@ function enviarAgendamento(e) {
     const data = document.getElementById('data').value;
     const horario = document.getElementById('horario').value;
     const observacoes = document.getElementById('observacoes').value.trim();
-    const mensagemDiv = document.getElementById('mensagem');
 
     // Validações
     if (!nome || !whatsapp || !servico || !data || !horario) {
@@ -90,7 +98,7 @@ function enviarAgendamento(e) {
     const [ano, mes, dia] = data.split('-');
     const dataFormatada = `${dia}/${mes}/${ano}`;
 
-    // Montar mensagem
+    // Montar mensagem para o TERAPEUTA
     let texto = `✨ *NOVO AGENDAMENTO — Equilíbrio Terapias* ✨\n\n`;
     texto += `👤 *Cliente:* ${nome}\n`;
     texto += `📱 *WhatsApp:* ${whatsapp}\n`;
@@ -103,16 +111,14 @@ function enviarAgendamento(e) {
 
     // Codificar para URL
     const textoCodificado = encodeURIComponent(texto);
-    
-    // 1️⃣ Enviar para o TERAPEUTA
     const linkTerapeuta = `https://wa.me/${NUMERO_TERAPEUTA}?text=${textoCodificado}`;
     
-    // 2️⃣ Mensagem de confirmação para o CLIENTE
+    // Mensagem de confirmação para o CLIENTE
     let textoCliente = `Olá ${nome}! 😊\n`;
     textoCliente += `Recebemos seu agendamento com a *Equilíbrio Terapias* ✨\n\n`;
     textoCliente += `📅 Data: ${dataFormatada}\n`;
     textoCliente += `⏰ Horário: ${horario}\n`;
-    textoCliente += `💆 Serviço: ${servico}\n\n`;
+    textoCliente += `💆 Serviço: ${servico.split('—')[0]}\n\n`;
     textoCliente += `Aguarde nossa confirmação. Obrigado pela preferência! 🙏`;
     
     const textoClienteCodificado = encodeURIComponent(textoCliente);
@@ -126,11 +132,11 @@ function enviarAgendamento(e) {
     // Depois mensagem para cliente
     setTimeout(() => window.open(linkCliente, '_blank'), 800);
 
+    // Salvar na tabela do painel admin
     const agendamentoParaTabela = { data, horario, nome, whatsapp, servico };
     historicoAgendamentosLocais.push(agendamentoParaTabela);
     localStorage.setItem('historicoAgendamentos', JSON.stringify(historicoAgendamentosLocais));
     renderizarTabelaAgendamentos();
-
 
     // Resetar formulário
     e.target.reset();
@@ -154,17 +160,10 @@ function limparNumero(numero) {
     return numero.replace(/\D/g, '');
 }
 
-// ================= CÓDIGO DO PAINEL ADMINISTRATIVO (ADICIONAR NO FINAL DO ARQUIVO) =================
-const SENHA_ADMIN_DEFINIDA = "12345"; // Defina sua senha aqui
-const HORARIOS_PADRAO = ["08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00"];
-
-let diasBloqueadosCompletos = JSON.parse(localStorage.getItem('diasBloqueados')) || [];
-let horariosBloqueadosEspecificos = JSON.parse(localStorage.getItem('horariosBloqueados')) || {}; 
-let listaTerapeutas = JSON.parse(localStorage.getItem('listaTerapeutas')) || [];
-let historicoAgendamentosLocais = JSON.parse(localStorage.getItem('historicoAgendamentos')) || [];
-
+// ================= PAINEL ADMINISTRATIVO =================
 function verificarSenhaAdmin() {
-    if (document.getElementById('admin-password').value === SENHA_ADMIN_DEFINIDA) {
+    const senhaDigitada = document.getElementById('admin-password');
+    if (senhaDigitada && senhaDigitada.value === SENHA_ADMIN_DEFINIDA) {
         sessionStorage.setItem('admin_logado', 'true');
         exibirPainelAdmin();
     } else {
@@ -183,7 +182,8 @@ function exibirPainelAdmin() {
     document.getElementById('admin-panel').style.display = 'block';
     renderizarListaBloqueios();
     renderizarListaTerapeutas();
-    document.getElementById('filtro-data-tabela').value = new Date().toISOString().split('T')[0];
+    const filtroData = document.getElementById('filtro-data-tabela');
+    if (filtroData) filtroData.value = new Date().toISOString().split('T')[0];
     renderizarTabelaAgendamentos();
 }
 
@@ -201,7 +201,11 @@ function inicializarCamposAdmin() {
 function gerenciarBloqueioDia() {
     const data = document.getElementById('admin-data-bloqueio').value;
     if (!data) return alert('Selecione uma data.');
-    diasBloqueadosCompletos.includes(data) ? diasBloqueadosCompletos = diasBloqueadosCompletos.filter(d => d !== data) : diasBloqueadosCompletos.push(data);
+    if (diasBloqueadosCompletos.includes(data)) {
+        diasBloqueadosCompletos = diasBloqueadosCompletos.filter(d => d !== data);
+    } else {
+        diasBloqueadosCompletos.push(data);
+    }
     localStorage.setItem('diasBloqueados', JSON.stringify(diasBloqueadosCompletos));
     renderizarListaBloqueios();
     carregarHorarios();
@@ -212,7 +216,11 @@ function gerenciarBloqueioHorario() {
     const hora = document.getElementById('admin-hora-select').value;
     if (!data || !hora) return alert('Selecione a data e o horário.');
     if (!horariosBloqueadosEspecificos[data]) horariosBloqueadosEspecificos[data] = [];
-    horariosBloqueadosEspecificos[data].includes(hora) ? horariosBloqueadosEspecificos[data] = horariosBloqueadosEspecificos[data].filter(h => h !== hora) : horariosBloqueadosEspecificos[data].push(hora);
+    if (horariosBloqueadosEspecificos[data].includes(hora)) {
+        horariosBloqueadosEspecificos[data] = horariosBloqueadosEspecificos[data].filter(h => h !== hora);
+    } else {
+        horariosBloqueadosEspecificos[data].push(hora);
+    }
     if (horariosBloqueadosEspecificos[data].length === 0) delete horariosBloqueadosEspecificos[data];
     localStorage.setItem('horariosBloqueados', JSON.stringify(horariosBloqueadosEspecificos));
     renderizarListaBloqueios();
@@ -224,18 +232,30 @@ function renderizarListaBloqueios() {
     if(!ul) return; ul.innerHTML = '';
     diasBloqueadosCompletos.forEach(d => {
         const [ano, mes, dia] = d.split('-');
-        ul.innerHTML += `<li>Dia Todo: ${dia}/${mes}/${ano} <button style="background:none; border:none; color:blue; cursor:pointer;" onclick="removerBloqueioDia('${d}')">[Ativar]</button></li>`;
+        ul.innerHTML += `<li>Dia Todo: ${dia}/${mes}/${ano} <button style="background:none; border:none; color:var(--turquesa); cursor:pointer; font-weight:bold;" onclick="removerBloqueioDia('${d}')">[Ativar]</button></li>`;
     });
     Object.keys(horariosBloqueadosEspecificos).forEach(d => {
         const [ano, mes, dia] = d.split('-');
         horariosBloqueadosEspecificos[d].forEach(h => {
-            ul.innerHTML += `<li>${dia}/${mes}/${ano} às ${h} <button style="background:none; border:none; color:blue; cursor:pointer;" onclick="removerBloqueioHora('${d}','${h}')">[Ativar]</button></li>`;
+            ul.innerHTML += `<li>${dia}/${mes}/${ano} às ${h} <button style="background:none; border:none; color:var(--turquesa); cursor:pointer; font-weight:bold;" onclick="removerBloqueioHora('${d}','${h}')">[Ativar]</button></li>`;
         });
     });
 }
 
-function removerBloqueioDia(data) { diasBloqueadosCompletos = diasBloqueadosCompletos.filter(d => d !== data); localStorage.setItem('diasBloqueados', JSON.stringify(diasBloqueadosCompletos)); renderizarListaBloqueios(); carregarHorarios(); }
-function removerBloqueioHora(data, hora) { horariosBloqueadosEspecificos[data] = horariosBloqueadosEspecificos[data].filter(h => h !== hora); if (horariosBloqueadosEspecificos[data].length === 0) delete horariosBloqueadosEspecificos[data]; localStorage.setItem('horariosBloqueados', JSON.stringify(horariosBloqueadosEspecificos)); renderizarListaBloqueios(); carregarHorarios(); }
+function removerBloqueioDia(data) { 
+    diasBloqueadosCompletos = diasBloqueadosCompletos.filter(d => d !== data); 
+    localStorage.setItem('diasBloqueados', JSON.stringify(diasBloqueadosCompletos)); 
+    renderizarListaBloqueios(); 
+    carregarHorarios(); 
+}
+
+function removerBloqueioHora(data, hora) { 
+    horariosBloqueadosEspecificos[data] = horariosBloqueadosEspecificos[data].filter(h => h !== hora); 
+    if (horariosBloqueadosEspecificos[data].length === 0) delete horariosBloqueadosEspecificos[data]; 
+    localStorage.setItem('horariosBloqueados', JSON.stringify(horariosBloqueadosEspecificos)); 
+    renderizarListaBloqueios(); 
+    carregarHorarios(); 
+}
 
 function adicionarTerapeuta() {
     const nome = document.getElementById('nome-terapeuta').value.trim();
@@ -252,25 +272,27 @@ function renderizarListaTerapeutas() {
     const container = document.getElementById('lista-terapeutas-admin');
     if(!container) return; container.innerHTML = '';
     listaTerapeutas.forEach(t => {
-        container.innerHTML += `<div style="text-align: center; border: 1px solid #ddd; padding: 5px; border-radius: 6px; background: white; position: relative;"><img src="${t.foto}" style="width: 45px; height: 45px; object-fit: cover; border-radius: 50%;"><div style="font-size: 10px; overflow: hidden; text-overflow: ellipsis;">${t.nome}</div><span onclick="removerTerapeuta(${t.id})" style="position: absolute; top: -5px; right: -5px; background: red; color: white; border-radius: 50%; width: 15px; height: 15px; font-size: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center;">×</span></div>`;
+        container.innerHTML += `<div style="text-align: center; border: 1px solid #ddd; padding: 5px; border-radius: 6px; background: white; position: relative;"><img src="${t.foto}" style="width: 45px; height: 45px; object-fit: cover; border-radius: 50%;"><div style="font-size: 10px; overflow: hidden; text-overflow: ellipsis;">${t.nome}</div><span onclick="removerTerapeuta(${t.id})" style="position: absolute; top: -5px; right: -5px; background: var(--erro); color: white; border-radius: 50%; width: 15px; height: 15px; font-size: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center;">×</span></div>`;
     });
 }
 
-function removerTerapeuta(id) { listaTerapeutas = listaTerapeutas.filter(t => t.id !== id); localStorage.setItem('listaTerapeutas', JSON.stringify(listaTerapeutas)); renderizarListaTerapeutas(); }
+function removerTerapeuta(id) { 
+    listaTerapeutas = listaTerapeutas.filter(t => t.id !== id); 
+    localStorage.setItem('listaTerapeutas', JSON.stringify(listaTerapeutas)); 
+    renderizarListaTerapeutas(); 
+}
 
 function renderizarTabelaAgendamentos() {
     const dataFiltro = document.getElementById('filtro-data-tabela').value;
     const tbody = document.getElementById('corpo-tabela-agendamentos');
     if(!tbody) return; tbody.innerHTML = '';
     const filtrados = historicoAgendamentosLocais.filter(ag => ag.data === dataFiltro).sort((a, b) => a.horario.localeCompare(b.horario));
-    if (filtrados.length === 0) { tbody.innerHTML = '<tr><td colspan="4" style="padding: 1rem; text-align: center; color: #999;">Nenhum agendamento para este dia.</td></tr>'; return; }
+    if (filtrados.length === 0) { 
+        tbody.innerHTML = '<tr><td colspan="4" style="padding: 1rem; text-align: center; color: #999;">Nenhum agendamento para este dia.</td></tr>'; 
+        return; 
+    }
     filtrados.forEach(ag => {
-        tbody.innerHTML += `<tr><td style="padding: 0.5rem;">${ag.horario}</td><td style="padding: 0.5rem;">${ag.nome}</td><td style="padding: 0.5rem;"><a href="https://wa.me{ag.whatsapp.replace(/\D/g, '')}" target="_blank" style="color: var(--turquesa); text-decoration: none;">🟢 ${ag.whatsapp}</a></td><td style="padding: 0.5rem;">${ag.servico.split('—')[0]}</td></tr>`;
+        const numeroWhatsapp = limparNumero(ag.whatsapp);
+        tbody.innerHTML += `<tr><td style="padding: 0.5rem;">${ag.horario}</td><td style="padding: 0.5rem;">${ag.nome}</td><td style="padding: 0.5rem;"><a href="https://wa.me/${numeroWhatsapp}" target="_blank" style="color: var(--turquesa); text-decoration: none;">🟢 ${ag.whatsapp}</a></td><td style="padding: 0.5rem;">${ag.servico.split('—')[0]}</td></tr>`;
     });
 }
-
-// ================= BLOQUEAR DIA (para testes) =================
-// Para usar: apenas adicione datas no formato AAAA-MM-DD
-// Exemplo: diasBloqueados.push('2026-09-25');
-// ou direto na lista abaixo:
-// diasBloqueados = ['2026-09-30', '2026-10-01'];
