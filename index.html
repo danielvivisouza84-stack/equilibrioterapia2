@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Equilíbrio Terapias — Agendamento</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="[https://fonts.googleapis.com](https://fonts.googleapis.com)">
+    <link href="[https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Inter:wght@400;500;600;700&display=swap](https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Inter:wght@400;500;600;700&display=swap)" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,8 +13,8 @@
 <!-- Cabeçalho -->
 <header>
     <div class="container header-content">
-        <div class="logo">
-            <svg width="50" height="50" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <a href="#inicio" class="logo">
+            <svg width="50" height="50" viewBox="0 0 100 100" fill="none" xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)">
                 <circle cx="50" cy="50" r="48" fill="white" stroke="#1E3A5F" stroke-width="4"/>
                 <path d="M40 30C32 35 28 45 30 55C32 65 40 72 50 75V30C46 28 43 28 40 30Z" fill="#1E3A5F"/>
                 <path d="M50 30C55 28 60 32 65 40C72 50 70 62 60 72C55 76 50 77 50 77V30Z" fill="#22A6B3"/>
@@ -23,12 +23,12 @@
                 <h1>EQUILÍBRIO</h1>
                 <span>Terapias</span>
             </div>
-        </div>
+        </a>
         <nav>
             <a href="#inicio">Início</a>
+            <a href="#sobre">Sobre</a>
             <a href="#servicos">Serviços</a>
-            <a href="#agendar">Agendar</a>
-            <a href="#contato">Contato</a>
+            <a href="#agendar" class="nav-btn">Agendar</a>
         </nav>
     </div>
 </header>
@@ -38,12 +38,70 @@
     <section id="inicio" class="hero">
         <div class="container hero-grid">
             <div class="hero-text">
-                <h2>Seu bem-estar em equilíbrio</h2>
-                <p>Cuide de você com terapias que aliviam, relaxam e transformam. Agende seu horário com facilidade!</p>
-                <a href="#agendar" class="btn btn-primary">Agendar Agora</a>
+                <span class="hero-tag">Bem-estar completo</span>
+                <h2>Seu corpo em harmonia,<br>sua mente em paz</h2>
+                <p>Terapias que cuidam de você de verdade. Alívio do estresse, dores e tensões — com profissionais que realmente se importam.</p>
+                <div class="hero-buttons">
+                    <a href="#agendar" class="btn btn-primary">Agendar Agora</a>
+                    <a href="#sobre" class="btn btn-secondary">Conheça nossa equipe</a>
+                </div>
             </div>
             <div class="hero-image">
                 <div class="circle-accent"></div>
+                <div class="circle-secondary"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ✨ SEÇÃO NOVA: SOBRE NÓS — Logo à Esquerda | Equipe à Direita -->
+    <section id="sobre" class="about">
+        <div class="container">
+            <div class="about-grid">
+                <!-- 📍 SEU LOGOTIPO — Lado Esquerdo -->
+                <div class="about-brand">
+                    <h2 class="section-title">Quem Somos</h2>
+                    <div class="brand-logo-large">
+                        <!-- 👇 COLOQUE SEU LOGOTIPO AQUI 👇 -->
+                        <img src="assets/logo.jpeg" alt="Equilíbrio Terapias" id="logo-principal">
+                        <!-- 💡 Dica: substitua "LOGO_AQUI.png" pelo caminho/nome do seu arquivo, ex: "imagens/logo.png" ou um link como "[https://seusite.com/logo.png](https://seusite.com/logo.png)" -->
+                    </div>
+                    <p>Na Equilíbrio Terapias, acreditamos que saúde e bem-estar são fundamentais para uma vida plena. Com técnicas comprovadas e atendimento personalizado, cuidamos de você com carinho e profissionalismo.</p>
+                    <div class="about-features">
+                        <div class="feature-item">✅ Ambiente acolhedor</div>
+                        <div class="feature-item">✅ Terapeutas qualificados</div>
+                        <div class="feature-item">✅ Técnicas atualizadas</div>
+                    </div>
+                </div>
+
+                <!-- 📍 FOTOS DOS TERAPEUTAS — Lado Direito -->
+                <div class="about-team">
+                    <h3>Nossa Equipe</h3>
+                    <p class="team-subtitle">Conheça os profissionais que cuidarão de você</p>
+                    
+                    <div class="team-grid">
+                        <!-- 👇 FOTO 1 DO TERAPEUTA 👇 -->
+                        <div class="team-card">
+                            <div class="team-photo">
+                                <img src="assets/foto_terapeuta_2.jpeg" alt="Nome do Terapeuta" id="foto-terapeuta-1">
+                                <!-- 💡 Substitua "FOTO_TERAPEUTA_1.jpg" pela sua imagem -->
+                            </div>
+                            <h4>Luciele Silva</h4>
+                            <span>Reflexoterapeuta</span>
+                        </div>
+
+                        <!-- 👇 FOTO 2 DO TERAPEUTA 👇 -->
+                        <div class="team-card">
+                            <div class="team-photo">
+                                <img src="assets/foto_terapeuta_3.jpeg" alt="Nome do Terapeuta" id="foto-terapeuta-2">
+                                <!-- 💡 Substitua "FOTO_TERAPEUTA_2.jpg" pela sua imagem -->
+                            </div>
+                            <h4>Wender Silva</h4>
+                            <span>Reflexoterapeuta</span>
+                        </div>
+
+                    </div>
+                    <p class="team-hint">📷 Para alterar as fotos, é só trocar o nome do arquivo no código ou usar o Painel Administrativo lá embaixo do site!</p>
+                </div>
             </div>
         </div>
     </section>
@@ -51,27 +109,42 @@
     <!-- Seção Serviços -->
     <section id="servicos" class="services">
         <div class="container">
-            <h2 class="section-title">Nossos Serviços</h2>
+            <div class="section-header">
+                <h2 class="section-title">Nossos Serviços</h2>
+                <p class="section-subtitle">Escolha o cuidado que você precisa</p>
+            </div>
             <div class="services-grid">
                 <div class="service-card">
-                    <h3>🦶 Reflexoterapia</h3>
+                    <div class="service-icon">🦶</div>
+                    <h3>Reflexoterapia</h3>
                     <p>Estímulo de pontos nos pés para alívio de dores, estresse e equilíbrio do corpo inteiro.</p>
-                    <span class="price"> 60 min</span>
+                    <div class="service-footer">
+                    <span class="duration">60 min</span>
+                    </div>
                 </div>
                 <div class="service-card">
-                    <h3>🌿 Ventosaterapia</h3>
+                    <div class="service-icon">🌿</div>
+                    <h3>Ventosaterapia</h3>
                     <p>Melhora circulação, alivia tensões musculares e elimina toxinas do organismo.</p>
-                    <span class="price"> 45 min</span>
+                    <div class="service-footer">
+                    <span class="duration">45 min</span>
+                    </div>
                 </div>
                 <div class="service-card">
-                    <h3> Auriculoterapia</h3>
+                    <div class="service-icon">💆</div>
+                    <h3>Auriculoterapia</h3>
                     <p>Estímulo de pontos na orelha para alívio de dores, estresse e equilíbrio do corpo inteiro.</p>
-                    <span class="price">60 min</span>
+                    <div class="service-footer">
+                    <span class="duration">60 min</span>
+                    </div>
                 </div>  
-             <div class="service-card">
-                    <h3>  Quiropraxia</h3>
+                <div class="service-card">
+                    <div class="service-icon">🧠</div>
+                    <h3>Quiropraxia</h3>
                     <p>Tratamento manual para alívio de dores e melhora da função articular.</p>
-                    <span class="price"> 60 min</span>
+                    <div class="service-footer">
+                    <span class="duration">60 min</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -80,32 +153,34 @@
     <!-- Seção Agendamento -->
     <section id="agendar" class="booking">
         <div class="container">
-            <h2 class="section-title">Agende Sua Sessão</h2>
-            <p class="section-subtitle">Segunda a Sexta • 08h às 22h</p>
+            <div class="section-header">
+                <h2 class="section-title">Agende Sua Sessão</h2>
+                <p class="section-subtitle">terça a Sexta • 08h às 22h</p>
+            </div>
 
             <form id="bookingForm" class="booking-form">
-                <div class="form-group">
-                    <label for="nome">Seu Nome *</label>
-                    <input type="text" id="nome" required placeholder="Digite seu nome completo">
-                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="nome">Seu Nome *</label>
+                        <input type="text" id="nome" required placeholder="Digite seu nome completo">
+                    </div>
 
-                <div class="form-group">
-                    <label for="whatsapp">Seu WhatsApp *</label>
-                    <input type="tel" id="whatsapp" required placeholder="(XX) XXXXX-XXXX">
-                </div>
+                    <div class="form-group">
+                        <label for="whatsapp">Seu WhatsApp *</label>
+                        <input type="tel" id="whatsapp" required placeholder="(XX) XXXXX-XXXX">
+                    </div>
 
-                <div class="form-group">
-                    <label for="servico">Escolha o Serviço *</label>
-                    <select id="servico" required>
-                        <option value="">Selecione um serviço...</option>
-                        <option value="Reflexoterapia -R$200,00 - 60min">🦶 Reflexoterapia — R$ 175,00 (60 min)</option>
-                        <option value="Ventosaterapia - R$200,00 - 45min">🌿 Ventosaterapia — R$ 175,00 (45 min)</option>
-                        <option value="Auriculoterapia - R$200,00 - 60min">💆 Auriculoterapia — R$ 175,00 (60 min)</option>
-                        <option value="Quiropraxia - R$200,00 - 60min">🧠 Quiropraxia — R$ 175,00 (60 min)</option>
-                    </select>
-                </div>
+                    <div class="form-group full-width">
+                        <label for="servico">Escolha o Serviço *</label>
+                        <select id="servico" required>
+                            <option value="">Selecione um serviço...</option>
+                            <option value="Reflexoterapia - R$ 200,00 - 60min">🦶 Reflexoterapia — R$ 200,00 (60 min)</option>
+                            <option value="Ventosaterapia - R$ 200,00 - 45min">🌿 Ventosaterapia — R$ 200,00 (45 min)</option>
+                            <option value="Auriculoterapia - R$ 200,00 - 60min">💆 Auriculoterapia — R$ 200,00 (60 min)</option>
+                            <option value="Quiropraxia - R$ 200,00 - 60min">🧠 Quiropraxia — R$ 200,00 (60 min)</option>
+                        </select>
+                    </div>
 
-                <div class="form-row">
                     <div class="form-group">
                         <label for="data">Data *</label>
                         <input type="date" id="data" required>
@@ -116,11 +191,11 @@
                             <option value="">Escolha primeiro a data</option>
                         </select>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label for="observacoes">Observações (opcional)</label>
-                    <textarea id="observacoes" rows="3" placeholder="Alguma informação importante?"></textarea>
+                    <div class="form-group full-width">
+                        <label for="observacoes">Observações (opcional)</label>
+                        <textarea id="observacoes" rows="3" placeholder="Alguma informação importante?"></textarea>
+                    </div>
                 </div>
 
                 <button type="submit" class="btn btn-primary btn-full">📅 Confirmar Agendamento</button>
@@ -133,12 +208,41 @@
     <!-- Seção Contato -->
     <section id="contato" class="contact">
         <div class="container">
-            <h2 class="section-title">Entre em Contato</h2>
-            <div class="contact-info">
-                <p><strong>📱 WhatsApp:</strong> (27) 99940-6668</p>
-                <p><strong>📍 Endereço:</strong> Av.Mario Gurgel,5353- São Francisco,Cariacica-ES</p>
-                <p><strong>⏰ Atendimento:</strong> Segunda a Sexta, 08h às 22h</p>
-                <p><strong>📷 Instagram:</strong> @equilibrioterapiaes</p>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h2 class="section-title">Entre em Contato</h2>
+                    <p>Estamos aqui para responder suas dúvidas. Fale conosco!</p>
+                    <div class="contact-items">
+                        <div class="contact-item">
+                            <span class="contact-icon">📱</span>
+                            <div>
+                                <strong>WhatsApp</strong>
+                                <p>(27) 99940-6668</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-icon">📍</span>
+                            <div>
+                                <strong>Endereço</strong>
+                                <p>Av. Mario Gurgel, 5353 — São Francisco, Cariacica-ES</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-icon">⏰</span>
+                            <div>
+                                <strong>Atendimento</strong>
+                                <p>terça a Sexta, 08h às 22h</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-icon">📷</span>
+                            <div>
+                                <strong>Instagram</strong>
+                                <p>@equilibrioterapiaes</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -146,15 +250,21 @@
 
 <footer>
     <div class="container">
-        <p>&copy; 2026 Equilíbrio Terapias. Todos os direitos reservados.</p>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>EQUILÍBRIO Terapias</h3>
+                <p>Seu bem-estar em primeiro lugar.</p>
+            </div>
+            <p class="footer-copy">&copy; 2026 Equilíbrio Terapias. Todos os direitos reservados.</p>
+        </div>
     </div>
 </footer>
 
-<!-- ================= ÁREA DO ADMINISTRADOR (ADICIONAR) ================= -->
+<!-- ================= PAINEL ADMINISTRATIVO ================= -->
 <section id="admin-section" class="booking" style="border-top: 4px solid var(--azul-escuro); margin-top: 4rem; padding-bottom: 5rem;">
     <div class="container">
         <h2 class="section-title">🔐 Painel Administrativo</h2>
-        <p class="section-subtitle">Gerencie os horários, bloqueios e fotos da equipe</p>
+        <p class="section-subtitle">Gerencie horários, bloqueios e fotos da equipe</p>
 
         <!-- Formulário de Login -->
         <div id="admin-login-box" class="booking-form" style="max-width: 400px; margin: 0 auto;">
@@ -165,7 +275,7 @@
             <button class="btn btn-primary btn-full" onclick="verificarSenhaAdmin()">Acessar Painel</button>
         </div>
 
-        <!-- Painel Logado (Oculto por padrão) -->
+        <!-- Painel Logado -->
         <div id="admin-panel" style="display: none; margin-top: 2rem;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
                 <h3 style="color: var(--azul-escuro); font-size: 1.5rem;">Bem-vindo, Administrador!</h3>
@@ -173,81 +283,5 @@
             </div>
 
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
-                
-                <!-- Bloco 1: Bloqueio de Dias e Horários -->
-                <div class="booking-form" style="margin: 0; max-width: 100%;">
-                    <h4 style="color: var(--azul-escuro); margin-bottom: 1rem; font-weight: bold;">🚫 Bloquear Dias/Horários</h4>
-                    
-                    <div class="form-group">
-                        <label for="admin-data-bloqueio">Bloquear Dia Inteiro</label>
-                        <div style="display: flex; gap: 0.5rem;">
-                            <input type="date" id="admin-data-bloqueio">
-                            <button class="btn btn-primary" style="padding: 0 1rem;" onclick="gerenciarBloqueioDia()">Bloquear</button>
-                        </div>
-                    </div>
-
-                    <div class="form-group" style="margin-top: 1.5rem;">
-                        <label>Bloquear Horário Específico</label>
-                        <div class="form-row">
-                            <input type="date" id="admin-hora-data">
-                            <select id="admin-hora-select"></select>
-                        </div>
-                        <button class="btn btn-primary btn-full" style="margin-top: 0.5rem; background: var(--azul-medio);" onclick="gerenciarBloqueioHorario()">Bloquear Horário</button>
-                    </div>
-
-                    <div style="margin-top: 1.5rem;">
-                        <h5 style="font-weight: bold; margin-bottom: 0.5rem;">Bloqueios Ativos:</h5>
-                        <ul id="lista-bloqueios-ativos" style="font-size: 0.9rem; padding-left: 1.2rem; color: var(--erro);"></ul>
-                    </div>
-                </div>
-
-                <!-- Bloco 2: Cadastro de Terapeutas -->
-                <div class="booking-form" style="margin: 0; max-width: 100%;">
-                    <h4 style="color: var(--azul-escuro); margin-bottom: 1rem; font-weight: bold;">👤 Fotos e Terapeutas</h4>
-                    <div class="form-group">
-                        <label for="nome-terapeuta">Nome do Terapeuta</label>
-                        <input type="text" id="nome-terapeuta" placeholder="Ex: Dr. Carlos Silva">
-                    </div>
-                    <div class="form-group">
-                        <label for="link-foto-terapeuta">URL da Imagem/Foto</label>
-                        <input type="url" id="link-foto-terapeuta" placeholder="https://linkdafoto.com">
-                    </div>
-                    <button class="btn btn-primary btn-full" onclick="adicionarTerapeuta()">Adicionar Terapeuta</button>
-
-                    <div style="margin-top: 1.5rem;">
-                        <h5 style="font-weight: bold; margin-bottom: 0.5rem;">Equipe cadastrada:</h5>
-                        <div id="lista-terapeutas-admin" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)); gap: 0.5rem;"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Bloco 3: Tabela de Agendamentos do Dia -->
-            <div class="booking-form" style="margin-top: 2rem; max-width: 100%;">
-                <h4 style="color: var(--azul-escuro); margin-bottom: 1rem; font-weight: bold;">📋 Agendamentos Recebidos</h4>
-                <div class="form-group" style="max-width: 250px; display: flex; gap: 0.5rem; align-items: center;">
-                    <label style="margin: 0; white-space: nowrap;" for="filtro-data-tabela">Filtrar Dia:</label>
-                    <input type="date" id="filtro-data-tabela" onchange="renderizarTabelaAgendamentos()">
-                </div>
-                
-                <div style="overflow-x: auto; margin-top: 1rem;">
-                    <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem;">
-                        <thead>
-                            <tr style="background: var(--azul-escuro); color: white;">
-                                <th style="padding: 0.75rem;">Horário</th>
-                                <th style="padding: 0.75rem;">Cliente</th>
-                                <th style="padding: 0.75rem;">WhatsApp</th>
-                                <th style="padding: 0.75rem;">Serviço</th>
-                            </tr>
-                        </thead>
-                        <tbody id="corpo-tabela-agendamentos"></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-
+```
 <script src="script.js"></script>
-</body>
-</html>
